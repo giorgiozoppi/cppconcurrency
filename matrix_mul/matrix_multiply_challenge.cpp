@@ -54,11 +54,7 @@ void parallel_matrix_multiply(long ** A, size_t num_rows_a, size_t num_cols_a,
     /***********************
      * YOUR CODE GOES HERE *
      ***********************/
-      for (size_t i=0; i<num_rows_a; i++) {
-          for (size_t j=0; j<num_cols_b; j++) { 
-              C[i][j] = column_reduce(0, A, B, num_cols_a, num_cols_b, i, j);
-          }
-      }
+     
 
 
 }
