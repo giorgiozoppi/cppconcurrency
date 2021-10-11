@@ -1,0 +1,8 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/fenix/projects/cppconcurrency/deadlock'
+/usr/bin/g++-11 -Wall -std=c++2a -fsanitize=thread deadlock_1.cc -o deadlock -I/usr/local/include -L/usr/local/include -lfmtd -lpthread
+/usr/bin/g++-11 -Wall -std=c++2a -fsanitize=thread deadlock_2.cc -o deadlock_2 -I/usr/local/include -L/usr/local/include -lfmtd -lpthread
+/usr/bin/g++-11 -Wall -std=c++2a -fsanitize=thread deadlock_1-fixed.cc -o deadlock_fixed -I/usr/local/include -L/usr/local/include -lfmtd -lpthread 
+/usr/bin/g++-11 -Wall -std=c++2a -fsanitize=thread deadlock_2-fixed.cc -o deadlock_2_fixed -I/usr/local/include -L/usr/local/include -lfmtd -lpthread
+make: Leaving directory '/home/fenix/projects/cppconcurrency/deadlock'
+ 
