@@ -7,7 +7,7 @@
 #include <sstream>
 using namespace std::chrono_literals;
  
-std::mutex cout_mutex; // control access to std::cout
+ std::mutex cout_mutex; // control access to std::cout
 std::timed_mutex mutex;
  
 void job(int id)
