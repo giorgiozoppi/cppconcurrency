@@ -20,7 +20,6 @@ public:
     active_object(std::function<Result(T)> &&f)
     {
         _thread = std::thread(&active_object::process, this, std::move(f));
-        //  _thread.detach();
     }
     ~active_object()
     {
@@ -86,11 +85,8 @@ public:
         T item(std::move(msg));
         res = std::move(p.get_future());
         {
-            // std::cout << "Before queue mutex" << std::endl;
             std::lock_guard<std::mutex> lk(_queue_mutex);
-            //  std::cout << "Adding to the queue" << std::endl;
             _queue.push({std::move(item), std::move(p)});
-            //   std::cout << "Addded message to the queue" << std::endl;
         }
 
         cv.notify_one();
