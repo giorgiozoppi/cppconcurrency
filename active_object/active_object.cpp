@@ -56,7 +56,7 @@ public:
 
                     Result res;
                     res = f(msg.first);
-
+                    std::cout << "Computed result :" << res << std::endl;
                     msg.second.set_value(res);
                 }
             }
@@ -67,6 +67,7 @@ public:
 
                 Result res;
                 res = f(msg.first);
+                std::cout << "Computed result :" << res << std::endl;
 
                 msg.second.set_value(res);
             }
@@ -111,22 +112,25 @@ int main(int argc, char **argv)
             active_object<double, double> obj([](double v)
                                               {
                                                   // simulating work.
-                                                  std::this_thread::sleep_for(100ms);
+                                                  std::this_thread::sleep_for(500ms);
                                                   double x{v};
                                                   return x + 2;
                                               });
-            for (int i = 0; i < 200000; i++)
+            for (int i = 0; i < 100; i++)
             {
                 auto k = obj.send_message(double(i + 1));
                 {
                     std::lock_guard<std::mutex> rg(rmutex);
+                    std::cout << "Sending Message :" << double(i + 1) << std::endl;
                     results.emplace_back(std::move(k));
                 }
+                std::this_thread::sleep_for(500ms);
             }
         }
         for (auto &&r : results)
         {
             auto v = r.get();
+            std::cout << "Got result :" << v << std::endl;
             std::cout << v << std::endl;
         }
     }
