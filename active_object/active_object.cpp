@@ -30,13 +30,24 @@ public:
     active_object &operator=(const active_object &m) = delete;
     active_object(active_object &&v)
     {
-        _queue = std::move(v._queue);
+         _queue = std::move(v._queue);
         _queue_mutex = std::move(v._queue_mutex);
+        _processor = std::move(v._processor);
+        _thread = std::move(v._thread);
+        _cond_var_mutex = std::move(v._cond_var_mutex);
+        _cv = std::move(v._cv);
+        _stop = std::move(v._stop);
     }
     active_object &operator=(active_object &&v)
     {
         _queue = std::move(v._queue);
         _queue_mutex = std::move(v._queue_mutex);
+        _processor = std::move(v._processor);
+        _thread = std::move(v._thread);
+        _cond_var_mutex = std::move(v._cond_var_mutex);
+        _cv = std::move(v._cv);
+        _stop = std::move(v._stop);
+
     }
     void process(std::function<Result(T)> &&f)
     {
@@ -47,7 +58,7 @@ public:
             {
                 while (_queue.empty())
                 {
-                    cv.wait(lk);
+                    _cv.wait(lk);
                 }
                 if (!_queue.empty())
                 {
@@ -76,7 +87,7 @@ public:
     void stop()
     {
         _stop = true;
-        cv.notify_all();
+        _cv.notify_all();
     }
     auto send_message(T &&msg)
     {
@@ -90,17 +101,17 @@ public:
             _queue.push({std::move(item), std::move(p)});
         }
 
-        cv.notify_one();
+        _cv.notify_one();
         return res;
     }
 
 private:
     std::queue<std::pair<T, std::promise<Result>>> _queue;
     std::mutex _queue_mutex;
-    std::function<Result(T)> processor;
+    std::function<Result(T)> _processor;
     std::thread _thread;
     std::mutex _cond_var_mutex;
-    std::condition_variable cv;
+    std::condition_variable _cv;
     bool _ready;
     std::atomic<bool> _stop{false};
 };
