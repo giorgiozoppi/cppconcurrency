@@ -67,7 +67,6 @@ public:
 
                     Result res;
                     res = f(msg.first);
-                    std::cout << "Computed result :" << res << std::endl;
                     msg.second.set_value(res);
                 }
             }
@@ -78,8 +77,6 @@ public:
 
                 Result res;
                 res = f(msg.first);
-                std::cout << "Computed result :" << res << std::endl;
-
                 msg.second.set_value(res);
             }
         }

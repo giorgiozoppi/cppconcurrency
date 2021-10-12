@@ -1,5 +1,6 @@
 /**
- * Two philosophers, thinking and eating sushi
+ * Two philosophers, thinking and eating sushi.
+ * Here we've a bug...Try to understand where is.
  */
 #include <thread>
 #include <mutex>
