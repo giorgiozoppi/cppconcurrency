@@ -7,7 +7,7 @@
 </p>
 
 > C++ Concurrency Problems
-
+This are a set of exercises to pratice C++ Concurrency.
 ## Author
 
 👤 **Giorgio Zoppi**
@@ -20,5 +20,3 @@
 
 Give a ⭐️ if this project helped you!
 
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
